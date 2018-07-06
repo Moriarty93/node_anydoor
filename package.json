@@ -1,0 +1,22 @@
+{
+  "name": "node_anydoor",
+  "version": "1.0.0",
+  "description": "node test  static web server",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moriarty93/node_anydoor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Moriarty93/node_anydoor/issues"
+  },
+  "homepage": "https://github.com/Moriarty93/node_anydoor#readme",
+  "dependencies": {
+    "chalk": "^2.4.1"
+  }
+}
