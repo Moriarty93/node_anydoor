@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Moriarty93/node_anydoor#readme",
   "dependencies": {
-    "chalk": "^2.4.1"
+    "chalk": "^2.4.1",
+    "handlebars": "^4.0.11"
   }
 }
