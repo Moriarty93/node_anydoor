@@ -6,6 +6,10 @@ const stat = util.promisify(fs.stat);
 const readdir = util.promisify(fs.readdir);
 
 const config = require('../config/defaultConfig');
+const mime = require('./mime');
+const compress = require('./compress');
+const range = require('./range');
+const isFresh = require('./cache');
 
 // console.log(__dirname); // C:\Users\EasyHoms\Desktop\node_anydoor\src\helper
 // __dirname当前模块文件的文件夹名称，
@@ -20,9 +24,31 @@ module.exports = async (req, res, filePath) => {
   try {
     const stats = await stat(filePath);
     if(stats.isFile()) {
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'text/plain');
-      fs.createReadStream(filePath).pipe(res);
+      const contentType = mime(filePath);
+      res.setHeader('Content-Type', contentType);
+
+      //缓存
+      if(isFresh(stats, req, res)) {
+        res.statusCode = 304;
+        res.end();
+        return;
+      }
+
+      let rs;
+      //断点下载
+      const {code, start, end} = range(stats.size, req, res);
+      if(code === 200) {
+        res.statusCode = 200;
+        rs = fs.createReadStream(filePath);
+      } else {
+        res.statusCode = 206;
+        rs = fs.createReadStream(filePath, {start, end});
+      }
+
+      if(filePath.match(config.compress)) {
+        rs = compress(rs, req, res);
+      }
+      rs.pipe(res);
     } else if(stats.isDirectory()) {
       const files = await readdir(filePath);
       res.statusCode = 200;
@@ -32,7 +58,12 @@ module.exports = async (req, res, filePath) => {
       const data = {
         title: path.basename(filePath),
         dir: dir ? `/${dir}` : '',
-        files
+        files: files.map(file => {
+          return {
+            file,
+            icon: mime(file)
+          };
+        })
       };
       res.end(template(data));
     }
