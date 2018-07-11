@@ -2,7 +2,10 @@
   "name": "node_anydoor",
   "version": "1.0.0",
   "description": "node test  static web server",
-  "main": "app.js",
+  "main": "src/app.js",
+  "bin": {
+    "anydoor": "bin/anydoor"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +21,7 @@
   "homepage": "https://github.com/Moriarty93/node_anydoor#readme",
   "dependencies": {
     "chalk": "^2.4.1",
-    "handlebars": "^4.0.11"
+    "handlebars": "^4.0.11",
+    "yargs": "^12.0.1"
   }
 }
