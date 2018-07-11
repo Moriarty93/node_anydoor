@@ -1,6 +1,6 @@
 {
   "name": "node_anydoor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "node test  static web server",
   "main": "src/app.js",
   "bin": {
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/Moriarty93/node_anydoor.git"
   },
-  "author": "",
+  "author": "Moriarty",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Moriarty93/node_anydoor/issues"
