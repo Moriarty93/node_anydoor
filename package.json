@@ -1,5 +1,5 @@
 {
-  "name": "node_anydoor",
+  "name": "node_anydoor_test",
   "version": "1.0.1",
   "description": "node test  static web server",
   "main": "src/app.js",
